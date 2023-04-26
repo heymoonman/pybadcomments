@@ -28,8 +28,9 @@ exclude = '''
 '''
 
 [tool.isort]
-line-length = 88
+line_length = 88
 profile = 'black'
 
 [tool.pylint]
 max-line-length = 88
+disable = ['C0114', 'C0116']
