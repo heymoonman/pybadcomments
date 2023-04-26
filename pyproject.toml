@@ -1,0 +1,11 @@
+# pyproject.toml!
+
+[build-system]
+requires = ['setuptools>=64.0.0', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'pybadcomments'
+description = 'The linter to detect undesirable words in comments.'
+version = '0.1.0'
+requires-python = '>=3.10'

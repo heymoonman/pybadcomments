@@ -1,0 +1,6 @@
+-   id: pybadcomments
+    name: PyBadComments
+    description: This hook finds banned words in comments and raises warnings on them.
+    entry: ...
+    language: python
+    types: [python]
