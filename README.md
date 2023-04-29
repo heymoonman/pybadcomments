@@ -7,3 +7,6 @@ any given files for those words in the comments and raise a warning, pointing to
 offending word that has caused the warning.f
 
 It can be installed as a pre-commit hook to allow for pre-commit linting.
+
+## References
+Inspired and aided by [tryceratops](https://github.com/guilatrova/tryceratops)
