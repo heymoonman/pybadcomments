@@ -1,1 +1,1 @@
-from __future__ import annotations
+from .discovery import load_config

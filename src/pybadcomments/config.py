@@ -6,7 +6,7 @@ from typing import TypedDict
 class PyProjectConfig(TypedDict):
     """
     The expected configuration for the application:
-        include: A list of words and phrases that will be searched for and warned on
+        exclude: A list of paths to be excluded from the file discovery.
     """
 
-    include: list[str]
+    exclude: list[str]
