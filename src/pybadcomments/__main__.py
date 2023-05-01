@@ -2,7 +2,10 @@
 
 import click
 
-EXCLUDE_OPTION = {"multiple": True, "help": "A directory to be excluded. e.g. "}
+EXCLUDE_OPTION = {
+    "multiple": True,
+    "help": "A directory to be excluded. e.g. -x tests --exclude samples/",
+}
 
 
 @click.command()
