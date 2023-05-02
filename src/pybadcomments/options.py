@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Iterable
 
 from .config import PyProjectConfig
@@ -9,6 +10,7 @@ from .config import PyProjectConfig
 EXCLUDE_DEFAULT = ()
 
 
+@dataclass
 class GlobalOptions:
     exclude_paths: Iterable[str]
 

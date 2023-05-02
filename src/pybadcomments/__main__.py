@@ -49,6 +49,9 @@ def entrypoint(
     if verbose:
         logger.setLevel(logging.DEBUG)
 
+    print(global_options)
+    print(verbose)
+
 
 def main() -> None:
     # pylint: disable=E1120
