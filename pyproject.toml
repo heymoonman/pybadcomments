@@ -6,8 +6,8 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'pybadcomments'
-description = 'The linter to detect undesirable words in comments.'
-requires-python = '>=3.10'
+description = 'The linter to detect undesirable words and phrases in comments.'
+requires-python = '>=3.8'
 dynamic = ['version']
 
 [tools.setuptools.dynamic]
