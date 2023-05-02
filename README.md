@@ -1,4 +1,6 @@
 [![tests](https://github.com/M-Moon/pybadcomments/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/M-Moon/pybadcomments/actions/workflows/python-package.yml)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![License: MIT](https://black.readthedocs.io/en/stable/_static/license.svg)](https://github.com/M-Moon/pybadcomments/blob/main/LICENSE)
 
 # PyBadComments Linter
 
