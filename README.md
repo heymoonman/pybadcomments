@@ -1,3 +1,5 @@
+[![tests](https://github.com/M-Moon/pybadcomments/actions/workflows/python-package.yml/badge.svg?branch=main)](https://github.com/M-Moon/pybadcomments/actions/workflows/python-package.yml)
+
 # PyBadComments Linter
 
 A Python code linter designed to find banned words/phrases in Python comments and raise a warning.
