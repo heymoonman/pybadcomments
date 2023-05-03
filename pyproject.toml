@@ -37,3 +37,6 @@ profile = 'black'
 [tool.pylint]
 max-line-length = 88
 disable = ['C0114', 'C0116', 'W0631', 'R0903', 'C0115']
+
+[tool.pybadcomments]
+words = ['fudge', 'terrible', 'hotfix', 'small bug', 'bad example', 'oxymoron']
