@@ -3,5 +3,6 @@ venv/
 *.egg-info
 *.pyc
 *.log
+__pycache__/
 .DS_Store
 dist/
