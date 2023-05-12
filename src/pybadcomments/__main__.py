@@ -11,7 +11,7 @@ from .options import GlobalOptions
 
 EXCLUDE_OPTION = {
     "multiple": True,
-    "help": "A directory to be excluded. e.g. -x tests --exclude samples/",
+    "help": "A directory to be excluded. e.g. -x tests/ --exclude samples/big_samples/",
 }
 VERBOSE_OPTION = {
     "is_flag": True,
@@ -24,20 +24,20 @@ logger = logging.getLogger("pybadcomments")
 
 
 @click.command()
-@click.argument("words", nargs=-1)
+@click.argument("strings", nargs=-1)
 @click.argument("dir", default=".", nargs=1)
 @click.option("-x", "--exclude", **EXCLUDE_OPTION)
 @click.option("-v", "--verbose", **VERBOSE_OPTION)
 @click.version_option(prog_version)
 def entrypoint(
-    exclude: tuple[str, ...], verbose: bool, words: tuple[str, ...], dir: tuple[str]
+    exclude: tuple[str, ...], verbose: bool, strings: tuple[str, ...], dir: tuple[str]
 ) -> None:
     """A linter that searches for banned words in Python files."""
     # pylint: disable=W0622
     # pylint: disable=W0613
-    print(words)
-    print(dir)
-    print(exclude)
+    print(f"got words: {strings=}")
+    print(f"got dir: {dir=}")
+    print(f"got exclude: {exclude=}")
 
     pyproj_config = load_config(dir)
     if pyproj_config:
@@ -49,8 +49,10 @@ def entrypoint(
     if verbose:
         logger.setLevel(logging.DEBUG)
 
+    strings += tuple(pyproj_config.get("words", ()))
     print(global_options)
     print(verbose)
+    print(strings)
 
 
 def main() -> None:
