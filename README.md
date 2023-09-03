@@ -15,3 +15,16 @@ It can be installed as a pre-commit hook to allow for pre-commit linting.
 
 ## References
 Inspired and aided by [tryceratops](https://github.com/guilatrova/tryceratops)
+
+## Testing
+### Samples
+
+Sample files for testing on can be provided in the 'samples' folder. These files act like real Python scripts upon which the linter can be run to test for banned words.
+
+Feel free to add any sample files needed to test unique cases.
+
+### Testing code without a sample file
+
+It is possible to provide Python code as a string and test upon that in test files.
+
+[WIP] Need to ensure the code is setup to allow this.
