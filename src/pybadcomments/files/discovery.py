@@ -58,7 +58,7 @@ class FileDiscovery:
                 logger.exception("Failed to parse file: %s", filename)
                 self.failures.append(FileParseFailed(filename, str(ex), ex))
 
-    def parse_python_files(self, files: Iterable[str]):
+    def parse_python_files(self, files: Iterable[str]) -> Generator:
         # pylint: disable=E1133
         for file in files:
             yield from self._parse_files_from_file_path(file)

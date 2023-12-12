@@ -5,6 +5,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class CommentViolation:
-    def __init__(self, lineno: int, violating_phrase: str) -> None:
-        self.lineno = lineno
-        self.violating_phrase = violating_phrase
+    """Holds information regarding a violation found in a comment."""
+
+    filename: str
+    lineno: str
+    violating_phrase: str

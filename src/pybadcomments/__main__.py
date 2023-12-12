@@ -5,9 +5,11 @@ import logging
 import click
 
 from pybadcomments import __version__ as prog_version
-from pybadcomments.files import load_config
+from pybadcomments.files import FileDiscovery, load_config
 
 from .options import GlobalOptions
+
+Discovery = FileDiscovery
 
 EXCLUDE_OPTION = {
     "multiple": True,
@@ -53,6 +55,15 @@ def entrypoint(
     print(global_options)
     print(verbose)
     print(strings)
+
+    # Get files/filepaths to parse
+    found_files = list(Discovery.parse_python_files(dir))
+
+    # Parse files with runner, where runner will apply given
+    # analysers to each line as it's parsed (using generators)
+
+    # Gather report and print out
+    # Exit
 
 
 def main() -> None:
