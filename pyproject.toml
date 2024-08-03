@@ -13,6 +13,13 @@ dynamic = ['version']
 [tool.setuptools.dynamic]
 version = { attr = 'pybadcomments.__version__' }
 
+[tool.pytest.ini_options]
+pythonpath = "pybadcomments"
+log_cli = true
+log_cli_level = "INFO"
+log_format = "%(asctime)s %(levelname)s %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
+
 [tool.black]
 line-length = 88
 include = '\.pyi?$'
@@ -40,5 +47,12 @@ disable = ['C0114', 'C0116', 'W0631', 'R0903', 'C0115', 'C0103']
 ignore = 'tests'
 
 [tool.pybadcomments]
-words = ['fudge', 'terrible', 'hotfix', 'small bug', 'bad example', 'oxymoron']
+strings = [
+  'fudge',
+  'terrible',
+  'hotfix',
+  'small bug',
+  'bad example',
+  'oxymoron',
+]
 exclude = 'tests/'

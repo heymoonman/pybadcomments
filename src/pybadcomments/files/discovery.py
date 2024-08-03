@@ -1,11 +1,10 @@
 # discovery.py
 
+import os
 from dataclasses import dataclass
 from logging import getLogger
-from os import listdir
-from os.path import isdir, isfile, join
 from pathlib import Path
-from typing import Generator, Iterable, Sequence
+from typing import Sequence
 
 import toml
 
@@ -13,55 +12,60 @@ from pybadcomments.config import PyProjectConfig
 
 logger = getLogger(__name__)
 
+AVOID_DIRECTORIES_IF_CONTAINS = {
+    "pyvenv.cfg",
+}
+
 
 def is_python_file(filename: str) -> bool:
-    return isfile(filename) and filename.endswith(".py")
+    return os.path.isfile(filename) and filename.endswith(".py")
 
 
-def find_files_in_dir(dir_: str) -> Generator[str, None, None]:
-    files = listdir(dir_)
-    for file_path in files:
-        full_path = join(dir_, file_path)
-        if isdir(full_path):
-            yield from find_files_in_dir(full_path)
-        elif is_python_file(full_path):
-            yield full_path
+def is_allowed_directory(dir_path: str) -> bool:
+    if dir_path.startswith("."):
+        return False
+    if any(file in AVOID_DIRECTORIES_IF_CONTAINS for file in os.listdir(dir_path)):
+        return False
+    return True
 
 
 @dataclass(frozen=True)
 class FileParseFailed:
     filename: str
-    reason: str
     exception: Exception
 
 
 class FileDiscovery:
     def __init__(self) -> None:
         self.failures: list[FileParseFailed] = []
+        self.files: list[Path] = []
+
+    def __str__(self) -> str:
+        return f"FileDiscovery - Files: {self.files} - Failures: {self.failures}"
 
     @property
     def had_issues(self) -> bool:
         return len(self.failures) > 0
 
-    def _parse_files_from_file_path(self, file_path: str) -> Generator[str, None, None]:
+    def parse_files_from_file_path(self, file_path: str | Path) -> list[str]:
         # pylint: disable=W0718
-        files = []
-        if is_python_file(file_path):
-            files.append(file_path)
-        elif isdir(file_path):
-            files = list(find_files_in_dir(file_path))
 
-        for filename in files:
+        def rec_func(file_path: str):
             try:
-                pass
-            except Exception as ex:
-                logger.exception("Failed to parse file: %s", filename)
-                self.failures.append(FileParseFailed(filename, str(ex), ex))
+                if is_python_file(file_path):
+                    self.files.append(Path(file_path))
+                elif os.path.isdir(file_path):
+                    new_file_paths = os.listdir(file_path)
+                    for fp in new_file_paths:
+                        if os.path.isdir(fp) and not is_allowed_directory(fp):
+                            continue
+                        self.parse_files_from_file_path(os.path.join(file_path, fp))
+            except Exception as exc:
+                logger.warning("Failed parsing file path %s", file_path)
+                print(exc)
+                self.failures.append(FileParseFailed(filename=file_path, exception=exc))
 
-    def parse_python_files(self, files: Iterable[str]) -> Generator:
-        # pylint: disable=E1133
-        for file in files:
-            yield from self._parse_files_from_file_path(file)
+        rec_func(file_path)
 
 
 def find_project_root(srcs: Sequence[str]) -> Path:
@@ -71,7 +75,7 @@ def find_project_root(srcs: Sequence[str]) -> Path:
     passed in `srcs`.
 
     If no directory in the tree contains a marker that would specify it's the
-    project root, the root of the file system is returned.
+    project root, the current working directory is returned.
     """
     if not srcs:
         srcs = [str(Path.cwd().resolve())]
