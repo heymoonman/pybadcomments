@@ -14,7 +14,7 @@ dynamic = ['version']
 version = { attr = 'pybadcomments.__version__' }
 
 [tool.pytest.ini_options]
-pythonpath = "pybadcomments"
+pythonpath = "."
 log_cli = true
 log_cli_level = "INFO"
 log_format = "%(asctime)s %(levelname)s %(message)s"
