@@ -1,1 +1,1 @@
-from .discovery import load_config
+from .discovery import FileDiscovery, load_config

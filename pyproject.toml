@@ -7,11 +7,21 @@ build-backend = 'setuptools.build_meta'
 [project]
 name = 'pybadcomments'
 description = 'The linter to detect undesirable words and phrases in comments.'
-requires-python = '>=3.8'
+requires-python = '>=3.9'
 dynamic = ['version']
 
-[tools.setuptools.dynamic]
-version = {attr = 'pybadcomments.__version__'}
+[tool.setuptools.dynamic]
+version = { attr = 'pybadcomments.__version__' }
+
+[tool.pytest.ini_options]
+pythonpath = "."
+log_cli = true
+log_cli_level = "INFO"
+log_format = "%(asctime)s %(levelname)s %(message)s"
+log_date_format = "%Y-%m-%d %H:%M:%S"
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests", "integration"]
 
 [tool.black]
 line-length = 88
@@ -36,4 +46,16 @@ profile = 'black'
 
 [tool.pylint]
 max-line-length = 88
-disable = ['C0114', 'C0116', 'W0631', 'R0903', 'C0115']
+disable = ['C0114', 'C0116', 'W0631', 'R0903', 'C0115', 'C0103']
+ignore = 'tests'
+
+[tool.pybadcomments]
+strings = [
+  'fudge',
+  'terrible',
+  'hotfix',
+  'small bug',
+  'bad example',
+  'oxymoron',
+]
+exclude = 'tests/'
