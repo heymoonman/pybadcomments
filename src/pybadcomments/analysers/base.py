@@ -1,6 +1,7 @@
 # analysers/base.py
 
 from abc import ABC, abstractmethod
+from pathlib import Path
 from tokenize import TokenInfo
 
 from pybadcomments.comment_violations import CommentViolation
@@ -13,7 +14,9 @@ class BaseTokenInfoAnalyser(ABC):
         self._settings = settings
 
     @abstractmethod
-    def analyse(self, to_analyse: TokenInfo) -> None:
+    def analyse(
+        self, to_analyse: TokenInfo, file_path: Path | str | None = None
+    ) -> None:
         ...
 
     def reset_violations(self) -> None:

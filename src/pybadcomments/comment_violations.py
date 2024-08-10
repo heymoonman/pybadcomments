@@ -1,20 +1,22 @@
 # comment_violations.py
 
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass(frozen=True)
 class CommentViolation:
     """Holds information regarding a violation found in a comment."""
 
-    filename: str
+    filename: Path | str
     lineno: int
     columnno: int
     full_comment: str
     violating_phrase: str
 
     def __str__(self) -> str:
-        return f"""{self.lineno}:{self.columnno} - Found violating string match
+        return f"""{self.filename}
+{self.lineno}:{self.columnno} - Found violating string match
 Violating string - "{self.violating_phrase}"
 -> {self.full_comment} <-"""
 

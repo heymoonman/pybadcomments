@@ -18,7 +18,7 @@ class AnalysisResults:
     verbose: bool = False
 
     def __str__(self) -> str:
-        output = "\n"
+        output = ""
         if not self.violations:
             return output
 

@@ -44,10 +44,10 @@ def entrypoint(
         root_dir = Path(dir)
 
     print(f"got words: {strings=}")
-    print(f"got dir: {dir=}")
+    print(f"got dir: {root_dir=}")
     print(f"got exclude: {exclude=}")
 
-    pyproj_config = load_config(str(root_dir))
+    pyproj_config = load_config(root_dir)
     if pyproj_config:
         global_options = GlobalOptions.create_from_pyproj_config(
             pyproj_config,
@@ -63,10 +63,10 @@ def entrypoint(
     if global_options.verbose:
         logging.basicConfig(level=logging.DEBUG)
 
-    print(global_options)
-    print(global_options.verbose)
-    print(global_options.banned_strings)
-    print(global_options.exclude_paths)
+    # print(global_options)
+    # print(global_options.verbose)
+    # print(global_options.banned_strings)
+    # print(global_options.exclude_paths)
 
     # Get files/filepaths to parse
     discovery.parse_files_from_file_path(root_dir)

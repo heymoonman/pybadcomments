@@ -1,5 +1,6 @@
 # processors.py
 
+import io
 from abc import abstractmethod
 from logging import getLogger
 from pathlib import Path
@@ -13,7 +14,7 @@ logger = getLogger(__name__)
 
 
 class Processor:
-    def __init__(self, analysers: list[BaseTokenInfoAnalyser] = None) -> None:
+    def __init__(self, analysers: list[BaseTokenInfoAnalyser] | None = None) -> None:
         if analysers is None:
             analysers = []
         self.analysers = analysers
@@ -38,15 +39,19 @@ class TokenizingProcessor(Processor):
         self.analysers.append(analyser)
 
     def _parse_file(self, file: Path) -> Generator[TokenInfo, None, None]:
-        print(f"parsing file {file}")
-        tokens = tokenize(file.open(encoding="utf-8").readline)
+        # print(f"parsing file {file}")
+        with open(file, "rb") as fp:
+            contents = io.BytesIO(fp.read())
+        tokens = tokenize(contents.readline)
         for token in tokens:
             yield token
 
-    def _analyse_token_info(self, info: TokenInfo) -> FileAnalysisResult:
+    def _analyse_token_info(
+        self, info: TokenInfo, file_path: Path | str
+    ) -> FileAnalysisResult:
         violations = []
         for analyser in self.analysers:
-            analyser.analyse(info)
+            analyser.analyse(info, file_path)
             if analyser.violations:
                 violations.extend(analyser.violations)
                 analyser.reset_violations()
@@ -56,7 +61,7 @@ class TokenizingProcessor(Processor):
 
     def process_file(self, file: Path) -> None:
         for token in self._parse_file(file):
-            analysis_result = self._analyse_token_info(token)
+            analysis_result = self._analyse_token_info(token, file)
             if analysis_result.violation_found:
                 self.comment_violations.extend(analysis_result.violations)
 

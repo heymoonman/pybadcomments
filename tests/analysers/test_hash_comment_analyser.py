@@ -24,6 +24,7 @@ def dummy_func() -> Any:
     c = a * b
     return c
     """
+    logger.info(BytesIO(test_file.encode("utf-8")).readline)
     tokens = tokenize.tokenize(BytesIO(test_file.encode("utf-8")).readline)
     analyser = HashCommentAnalyser(options)
     for token in tokens:

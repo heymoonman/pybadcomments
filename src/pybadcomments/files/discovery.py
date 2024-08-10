@@ -106,9 +106,8 @@ def find_project_root(srcs: Sequence[str]) -> Path:
     return directory
 
 
-def find_pyproject_toml(path_search_start: Sequence[str]) -> str | None:
+def find_pyproject_toml(path_project_root: Path) -> str | None:
     """Find the absolute filepath to a pyproject.toml if it exists"""
-    path_project_root = find_project_root(path_search_start)
     path_pyproject_toml = path_project_root / "pyproject.toml"
 
     if path_pyproject_toml.is_file():
@@ -117,11 +116,11 @@ def find_pyproject_toml(path_search_start: Sequence[str]) -> str | None:
     return None
 
 
-def load_config(dir: Sequence[str]) -> PyProjectConfig | None:
+def load_config(project_root: Path) -> PyProjectConfig | None:
     # pylint: disable=W0622
-    toml_file = find_pyproject_toml(dir)
+    toml_file = find_pyproject_toml(project_root)
 
-    if toml_file:
+    if toml_file is not None:
         config = toml.load(toml_file)
         return config.get("tool", {}).get("pybadcomments", {})
 
