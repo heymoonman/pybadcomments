@@ -2,13 +2,14 @@
 
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Union
 
 
 @dataclass(frozen=True)
 class CommentViolation:
     """Holds information regarding a violation found in a comment."""
 
-    filename: Path | str
+    filename: Union[Path, str]
     lineno: int
     columnno: int
     full_comment: str

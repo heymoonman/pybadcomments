@@ -5,7 +5,7 @@ from abc import abstractmethod
 from logging import getLogger
 from pathlib import Path
 from tokenize import TokenInfo, tokenize
-from typing import Generator, Iterable
+from typing import Generator, Iterable, Union
 
 from src.pybadcomments.analysers import BaseTokenInfoAnalyser
 from src.pybadcomments.comment_violations import CommentViolation, FileAnalysisResult
@@ -14,7 +14,9 @@ logger = getLogger(__name__)
 
 
 class Processor:
-    def __init__(self, analysers: list[BaseTokenInfoAnalyser] | None = None) -> None:
+    def __init__(
+        self, analysers: Union[list[BaseTokenInfoAnalyser], None] = None
+    ) -> None:
         if analysers is None:
             analysers = []
         self.analysers = analysers
@@ -47,7 +49,7 @@ class TokenizingProcessor(Processor):
             yield token
 
     def _analyse_token_info(
-        self, info: TokenInfo, file_path: Path | str
+        self, info: TokenInfo, file_path: Union[Path, str]
     ) -> FileAnalysisResult:
         violations = []
         for analyser in self.analysers:

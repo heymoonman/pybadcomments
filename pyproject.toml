@@ -7,7 +7,7 @@ build-backend = 'setuptools.build_meta'
 [project]
 name = 'pybadcomments'
 description = 'The linter to detect undesirable words and phrases in comments.'
-requires-python = '>=3.8'
+requires-python = '>=3.9'
 dynamic = ['version']
 
 [tool.setuptools.dynamic]
@@ -19,6 +19,9 @@ log_cli = true
 log_cli_level = "INFO"
 log_format = "%(asctime)s %(levelname)s %(message)s"
 log_date_format = "%Y-%m-%d %H:%M:%S"
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests", "integration"]
 
 [tool.black]
 line-length = 88

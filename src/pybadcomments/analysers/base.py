@@ -3,9 +3,10 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 from tokenize import TokenInfo
+from typing import Union
 
-from pybadcomments.comment_violations import CommentViolation
-from pybadcomments.options import GlobalOptions
+from src.pybadcomments.comment_violations import CommentViolation
+from src.pybadcomments.options import GlobalOptions
 
 
 class BaseTokenInfoAnalyser(ABC):
@@ -15,7 +16,7 @@ class BaseTokenInfoAnalyser(ABC):
 
     @abstractmethod
     def analyse(
-        self, to_analyse: TokenInfo, file_path: Path | str | None = None
+        self, to_analyse: TokenInfo, file_path: Union[Path, str, None] = None
     ) -> None:
         ...
 

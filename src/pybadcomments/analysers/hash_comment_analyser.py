@@ -2,6 +2,7 @@
 
 from pathlib import Path
 from tokenize import COMMENT, TokenInfo
+from typing import Union
 
 from src.pybadcomments.comment_violations import CommentViolation
 
@@ -9,7 +10,7 @@ from .base import BaseTokenInfoAnalyser
 
 
 class HashCommentAnalyser(BaseTokenInfoAnalyser):
-    def analyse(self, to_analyse: TokenInfo, file_path: Path | str | None = None):
+    def analyse(self, to_analyse: TokenInfo, file_path: Union[Path, str, None] = None):
         if file_path is None:
             file_path = "UNKNOWN"
         if not to_analyse[0] == COMMENT:
