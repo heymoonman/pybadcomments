@@ -9,7 +9,7 @@ from .base import BaseTokenInfoAnalyser
 
 
 class HashCommentAnalyser(BaseTokenInfoAnalyser):
-    def analyse(self, to_analyse: TokenInfo, file_path: Path | str | None):
+    def analyse(self, to_analyse: TokenInfo, file_path: Path | str | None = None):
         if file_path is None:
             file_path = "UNKNOWN"
         if not to_analyse[0] == COMMENT:
