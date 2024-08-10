@@ -6,9 +6,14 @@ build-backend = 'setuptools.build_meta'
 
 [project]
 name = 'pybadcomments'
+authors = [{ name = "Joe Moon Whitehead", email = "joewhiteheadm@gmail.com" }]
 description = 'The linter to detect undesirable words and phrases in comments.'
+readme = "README.md"
 requires-python = '>=3.9'
 dynamic = ['version']
+
+[project.urls]
+"Homepage" = "https://github.com/heymoonman/pybadcomments"
 
 [tool.setuptools.dynamic]
 version = { attr = 'pybadcomments.__version__' }
